@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c3b938df347ecb4b8435a8393988f83",
+    "content-hash": "f282a2ed27dda4e3ed38bf9a44eae842",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -484,36 +484,6 @@
     ],
     "packages-dev": [
         {
-            "name": "apache/log4php",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://git-wip-us.apache.org/repos/asf/logging-log4php.git",
-                "reference": "cac428b6f67d2035af39784da1d1a299ef42fcf2"
-            },
-            "require": {
-                "php": ">=5.2.7"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/main/php/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "A versatile logging framework for PHP",
-            "homepage": "http://logging.apache.org/log4php/",
-            "keywords": [
-                "log",
-                "logging",
-                "php"
-            ],
-            "time": "2012-10-26T09:13:25+00:00"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.1.0",
             "source": {
@@ -726,20 +696,21 @@
         },
         {
             "name": "mattersight/phppact",
-            "version": "2.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pact-foundation/pact-php.git",
-                "reference": "0433cdd7ee32bd88f9dadb16202292c0f6285746"
+                "url": "https://github.com/nbrink91/pact-php.git",
+                "reference": "d5d9f4951eed396e58e8324e75bf81d766cc25d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pact-foundation/pact-php/zipball/0433cdd7ee32bd88f9dadb16202292c0f6285746",
-                "reference": "0433cdd7ee32bd88f9dadb16202292c0f6285746",
+                "url": "https://api.github.com/repos/nbrink91/pact-php/zipball/d5d9f4951eed396e58e8324e75bf81d766cc25d3",
+                "reference": "d5d9f4951eed396e58e8324e75bf81d766cc25d3",
                 "shasum": ""
             },
             "require": {
-                "apache/log4php": "^2.3",
+                "ext-curl": "*",
+                "ext-xsl": "*",
                 "jfalque/http-mock": "^1.0",
                 "justinrainbow/json-schema": "5.2.1",
                 "lukascivil/treewalker": "dev-master",
@@ -751,19 +722,20 @@
                 "zendframework/zend-xml2json": "^3.1"
             },
             "require-dev": {
-                "phpunit/dbunit": "^3.0",
-                "phpunit/php-invoker": "^1.1",
                 "phpunit/phpunit": "^6.2",
-                "symfony/yaml": "^3.3"
+                "psr/log": "^1.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "PhpPact\\": "src",
-                    "PhpPactTest\\": "test"
+                    "PhpPact\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "PhpPactTest\\": "tests"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -782,7 +754,10 @@
                 "pact-php-native",
                 "php-mock"
             ],
-            "time": "2017-12-06T21:15:32+00:00"
+            "support": {
+                "source": "https://github.com/nbrink91/pact-php/tree/master"
+            },
+            "time": "2017-12-29T20:46:29+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1796,16 +1771,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "1174d9018191e93cb9d719edec01257fc05f8158"
+                "reference": "b11c729f95109b56a0fe9650c6a63a0fcd8c439f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/1174d9018191e93cb9d719edec01257fc05f8158",
-                "reference": "1174d9018191e93cb9d719edec01257fc05f8158",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/b11c729f95109b56a0fe9650c6a63a0fcd8c439f",
+                "reference": "b11c729f95109b56a0fe9650c6a63a0fcd8c439f",
                 "shasum": ""
             },
             "require": {
@@ -1856,7 +1831,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2017-11-03T07:16:52+00:00"
+            "time": "2017-12-22T14:50:35+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -2644,7 +2619,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "mattersight/phppact": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
