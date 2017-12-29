@@ -1,0 +1,53 @@
+{
+    "provider": {
+        "name": "provider1"
+    },
+    "consumer": {
+        "name": "consumer1"
+    },
+    "metadata": {
+        "pactSpecificationVersion": "2.0.0"
+    },
+    "interactions": [
+        {
+            "description": "A get request to /goodbye/{name}",
+            "providerState": "Get Goodbye",
+            "request": {
+                "method": "GET",
+                "path": "/goodbye/Nick",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+                "body": {
+                    "message": "Goodbye, Nick"
+                }
+            }
+        },
+        {
+            "description": "A get request to /hello/{name}",
+            "providerState": "Get Hello",
+            "request": {
+                "method": "GET",
+                "path": "/hello/Nick",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+                "body": {
+                    "message": "Hello, Nick"
+                }
+            }
+        }
+    ]
+}

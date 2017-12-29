@@ -1,0 +1,42 @@
+{
+    "name": "mattersight/pact-example",
+    "description": "PHP examples using PACT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Nick Brink",
+            "email": "nick.brink@mattersight.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mattermack/JsonPath"
+        }
+    ],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "require": {
+        "slim/slim": "^3.9",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2",
+        "mattersight/phppact": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Consumer\\": "src/Consumer",
+            "Provider\\": "src/Provider"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Consumer\\": "tests/Consumer",
+            "Provider\\": "tests/Provider"
+        }
+    },
+    "scripts": {
+        "start-provider": "php -S localhost:8081 -t src/Provider/public"
+    }
+}
