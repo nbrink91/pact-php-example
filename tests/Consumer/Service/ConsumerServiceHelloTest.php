@@ -2,51 +2,41 @@
 
 namespace Consumer\Service;
 
-use Consumer\HttpMockHttpClient;
-use Consumer\PactBuilderSingleton;
-use PhpPact\Mocks\MockHttpService\Models\ProviderServiceRequest;
-use PhpPact\Mocks\MockHttpService\Models\ProviderServiceResponse;
-use PhpPact\PactBuilder;
+use Pact\Consumer\InteractionBuilder;
+use Pact\Consumer\MockServerConfig;
+use Pact\Consumer\Model\ConsumerRequest;
+use Pact\Consumer\Model\ProviderResponse;
 use PHPUnit\Framework\TestCase;
 
 class ConsumerServiceHelloTest extends TestCase
 {
-    /** @var PactBuilder */
-    private $pactBuilder;
-
-    protected function setUp()
-    {
-        $this->pactBuilder = PactBuilderSingleton::create('consumer1', 'provider1');
-    }
-
     public function testGetHelloString()
     {
-        $requestHeaders = [
-            "Content-Type" => "application/json"
-        ];
-        $request = new ProviderServiceRequest("GET", "/hello/Nick", $requestHeaders);
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('GET')
+            ->setPath('/hello/Nick')
+            ->addHeader('Content-Type', 'application/json');
 
-        $responseHeaders = [
-            "Content-Type" => "application/json;charset=utf-8",
-        ];
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(200)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody([
+                'message' => 'Hello, Nick'
+            ]);
 
-        $response = new ProviderServiceResponse(200, $responseHeaders);
-        $response->setBody(json_encode([
-            "message" => "Hello, Nick"
-        ]));
-
-        $mockService = $this->pactBuilder->getMockService();
+        $config = new MockServerConfig('localhost', 7200, 'someConsumer', 'someProvider', sys_get_temp_dir());
+        $mockService = new InteractionBuilder($config);
         $mockService
             ->given("Get Hello")
             ->uponReceiving("A get request to /hello/{name}")
             ->with($request)
             ->willRespondWith($response);
 
-        $service = new ConsumerService(new HttpMockHttpClient($mockService->getHost()), 'http://localhost');
-        $response = $service->getHelloString('Nick');
+        $service = new ConsumerService($config->getBaseUri());
+        $result = $service->getHelloString('Nick');
 
-        $mockService->verifyInteractions();
-
-        $this->assertEquals('Hello, Nick', $response);
+        $this->assertEquals('Hello, Nick', $result);
     }
 }

@@ -2,25 +2,28 @@
 
 namespace Consumer\Service;
 
-use Consumer\HttpClientInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Uri;
 
 class ConsumerService
 {
-    /** @var HttpClientInterface */
+    /** @var Client */
     private $httpClient;
 
     /** @var string */
-    private $url;
+    private $baseUri;
 
-    public function __construct(HttpClientInterface $httpClient, string $url)
+    public function __construct(string $baseUri)
     {
-        $this->httpClient = $httpClient;
-        $this->url = $url;
+        $this->httpClient = new Client();
+        $this->baseUri = $baseUri;
     }
 
     public function getHelloString(string $name): string
     {
-        $response = $this->httpClient->request('GET', "{$this->url}/hello/{$name}", ["Content-Type" => "application/json"]);
+        $response = $this->httpClient->request("GET", new Uri("{$this->baseUri}/hello/{$name}"), [
+            'headers' => ['Content-Type' => 'application/json']
+        ]);
         $body = $response->getBody();
         $object = json_decode($body);
         return $object->message;
@@ -28,7 +31,9 @@ class ConsumerService
 
     public function getGoodbyeString(string $name): string
     {
-        $response = $this->httpClient->request('GET', "{$this->url}/goodbye/{$name}", ["Content-Type" => "application/json"]);
+        $response = $this->httpClient->request("GET", "{$this->baseUri}/goodbye/{$name}", [
+            'headers' => ['Content-Type' => 'application/json']
+        ]);
         $body = $response->getBody();
         $object = json_decode($body);
         return $object->message;

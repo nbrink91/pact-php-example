@@ -16,6 +16,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/nbrink91/pact-php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nbrink91/pactphp"
         }
     ],
     "prefer-stable": true,
@@ -26,7 +30,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2",
-        "mattersight/phppact": "dev-master"
+        "mattersight/phppact": "dev-master",
+        "nicholasbrink/pact": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -36,8 +41,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ConsumerTests\\": "tests/Consumer",
-            "ProviderTests\\": "tests/Provider"
+            "Consumer\\": "tests/Consumer",
+            "Provider\\": "tests/Provider"
         }
     },
     "scripts": {

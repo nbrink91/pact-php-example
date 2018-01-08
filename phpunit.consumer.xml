@@ -5,7 +5,7 @@
         backupGlobals="true"
         backupStaticAttributes="false"
         cacheTokens="false"
-        colors="false"
+        colors="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
@@ -22,10 +22,10 @@
         timeoutForSmallTests="1"
         timeoutForMediumTests="10"
         timeoutForLargeTests="60"
-        verbose="false"
-        beStrictAboutTestsThatDoNotTestAnything="false">
+        verbose="true"
+        beStrictAboutTestsThatDoNotTestAnything="true">
     <testsuites>
-        <testsuite name="Consumer">
+        <testsuite name="ConsumerTests">
             <directory>./tests/Consumer</directory>
         </testsuite>
     </testsuites>
@@ -40,6 +40,22 @@
         <log type="coverage-clover" target="./test_results/coverage/test_coverage_results.xml"/>
     </logging>
     <listeners>
-        <listener class="Consumer\PactTestListener"/>
+        <listener class="Consumer\PactTestListener">
+            <arguments>
+                <array>
+                    <element>
+                        <string>ConsumerTests</string>
+                    </element>
+                </array>
+            </arguments>
+        </listener>
     </listeners>
+    <php>
+        <env name="PACT_MOCK_SERVER_HOST" value="localhost"/>
+        <env name="PACT_MOCK_SERVER_PORT" value="7200"/>
+        <env name="PACT_CONSUMER_NAME" value="someConsumer"/>
+        <env name="PACT_PROVIDER_NAME" value="someProvider"/>
+        <env name="PACT_BROKER_URI" value="http://localhost"/>
+        <env name="PACT_CONSUMER_VERSION" value="1.0.0"/>
+    </php>
 </phpunit>
